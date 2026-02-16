@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scroll Word Animation</title>
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+    }
+
+    .spacer {
+      height: 100vh;
+    }
+
+    .text-section {
+      padding: 100px 10%;
+      font-size: 40px;
+      line-height: 1.6;
+    }
+
+    .word {
+      opacity: 0.2;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+<div class="spacer"></div>
+
+<section class="text-section text-section-1">
+  <h2 id="animatedText">
+    Scroll karte hi yeh text word by word smooth animation ke saath appear hoga bilkul tumhare diye gaye code ki tarah.
+  </h2>
+</section>
+
+<div class="spacer"></div>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  const textElement = document.getElementById("animatedText");
+  const text = textElement.innerText;
+
+  const words = text.split(" ");
+  textElement.innerHTML = "";
+
+  words.forEach(word => {
+    const span = document.createElement("span");
+    span.classList.add("word");
+    span.innerHTML = word + "&nbsp;";
+    textElement.appendChild(span);
+  });
+
+  const wordElements = document.querySelectorAll(".text-section-1 .word");
+
+  gsap.to(wordElements, {
+    opacity: 1,
+    duration: 0.5,
+    stagger: 0.05,
+    scrollTrigger: {
+      trigger: ".text-section-1",
+      start: "top 90%",
+      end: "bottom 60%",
+      scrub: true
+    }
+  });
+</script>
+
+</body>
+</html>
